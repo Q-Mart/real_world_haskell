@@ -1,13 +1,11 @@
-module Trees where
-
 data Tree a = Node a (Tree a) (Tree a)
-            | Empty
-              deriving (Show)
+    | Empty
+     deriving (Show)
 
-simpleTree = Node "parent" (Node "left child" Empty Empty)
-                           (Node "right child" Empty Empty)
+data NewTree a = NewNode {
+    node :: a,
+    left :: Maybe (NewTree a),
+    right :: Maybe (NewTree a)
+} deriving (Show)
 
--- data Tree2 a = Node a (Maybe (Tree2 a)) (Maybe (Tree2 a)) deriving (Show)
-
--- simpleTree2 = Node "parent" (Just $ (Node "left child") Nothing Nothing)
-                            -- (Just $ (Node "right child") Nothing Nothing)
+-- You are at reporting errors
