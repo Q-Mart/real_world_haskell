@@ -7,5 +7,3 @@ data NewTree a = NewNode {
     left :: Maybe (NewTree a),
     right :: Maybe (NewTree a)
 } deriving (Show)
-
--- You are at reporting errors
