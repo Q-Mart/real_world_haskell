@@ -8,5 +8,11 @@ mean xs = addAll xs / fromIntegral (myLength xs)
 
 palindromise [] = []
 palindromise a = a ++ rev a
-  where rev (x:xs) = rev xs ++ [a]
+  where rev (x:xs) = rev xs ++ [x]
         rev a      = a
+
+isPalindrome a = rev a == a
+  where rev (x:xs) = rev xs ++ [x]
+        rev a      = a
+
+-- on q6
