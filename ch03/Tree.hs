@@ -7,3 +7,10 @@ data NewTree a = NewNode {
     left :: Maybe (NewTree a),
     right :: Maybe (NewTree a)
 } deriving (Show)
+
+height Empty = 0
+height (Node a b c) = 1 + max (height b) (height c)
+    where
+        max a b
+            | a >= b = a
+            | otherwise = b
