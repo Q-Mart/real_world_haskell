@@ -46,13 +46,21 @@ dir p1 p2 p3
 dirs [a,b,c] = [dir a b c]
 dirs xs = dirs (take 3 xs) ++ dirs (tail xs)
 
-grahamScan [] = []
-grahamScan ps =
+bottomeLeft ps = head $ sortBy (\(_,y1) (_,y2) -> compare y1 y2) ps
+
+sortByAngle [] = []
+sortByAngle ps = p0 : sortOn angle rest
   where
-    p0 = sortBy (\(_,y1) (_,y2) -> compare y1 y2) ps
-    dotProduct (x1,y1) (x2,y2) = (x1*x2) + (x2*y2)
-    mod (x,y) = sqrt (x**2)+(y**2)
-    cosAngle a b = dotProduct a b / ((mod a) * (mod b))
-    sortedAngles = sortBy(\a b -> compare (cosAngle p0 a) (cosAngle p0 b)
-    scan [] [] = []
-    scan [] sortedPs = 
+    p0@(x0,y0) = bottomeLeft ps
+    rest = filter (/= p0) ps
+    angle (x,y) = atan2 (y-y0) (x-x0)
+
+grahamScan [] = []
+grahamScan ps = scan [p0] sortedPs
+  where
+    p0:sortedPs = sortByAngle ps
+    scan xs [] = xs
+    scan xs [y] = y:xs
+    scan (x:xs) (y:z:ys)
+      | dir x y z == Main.Left = scan (y:x:xs) (z:ys)
+      | otherwise = scan xs (x:z:ys)
