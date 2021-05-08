@@ -20,3 +20,5 @@ splitWith f xs = case break f xs  of
                    ([],xs) -> [xs]
                    (xs,[]) -> [xs]
                    (first, x:rest) -> [first] ++ splitWith f rest
+
+-- At "explicit recursion"
