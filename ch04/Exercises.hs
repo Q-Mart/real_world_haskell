@@ -1,3 +1,5 @@
+import Data.Char (digitToInt)
+
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:xs) = Just x
@@ -21,4 +23,11 @@ splitWith f xs = case break f xs  of
                    (xs,[]) -> [xs]
                    (first, x:rest) -> [first] ++ splitWith f rest
 
--- At "explicit recursion"
+asInt_fold :: String -> Int
+asInt_fold xs
+  | head xs == '-' = (-1) * (digitsToInts $ tail xs)
+  | otherwise = digitsToInts xs where
+      digitsToInts xs' = foldl addDigit 0 xs'
+      addDigit acc x = acc * 10 + digitToInt x
+
+-- On exercise 2
