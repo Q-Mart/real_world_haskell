@@ -58,4 +58,17 @@ takeWhileFold f xs = foldr appendIfTrue [] xs where
                          True -> x:acc
                          False -> []
 
--- On exercise 5
+myGroupBy :: (a -> a -> Bool) -> [a] -> [[a]]
+myGroupBy _ [] = []
+myGroupBy f xs = foldr groupWithF [] xs where
+  groupWithF x [] = [[x]]
+  groupWithF x (h:acc)
+    | f x (last h) == True = (h++[x]):acc
+    | otherwise = [x]:h:acc
+
+myAny f xs = foldr changeTrueIfF False xs where
+  changeTrueIfF x acc = case f x of
+                          True -> True
+                          False -> acc
+
+myCycle xs = foldl' f 
