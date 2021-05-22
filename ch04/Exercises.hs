@@ -1,4 +1,5 @@
 import Data.Char (digitToInt)
+import Data.List (foldl')
 
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
@@ -71,4 +72,18 @@ myAny f xs = foldr changeTrueIfF False xs where
                           True -> True
                           False -> acc
 
-myCycle xs = foldl' f 
+myCycle xs = let ys = foldr (:) ys xs in ys
+
+myWords s = foldl' f [] s where
+  f acc ' ' = acc ++ [[]]
+  f [] c = [[c]]
+  f acc c = (init acc) ++ [(last acc) ++ [c]]
+
+myWords2 s = foldr f [] s where
+  f ' ' acc = []:acc
+  f c [] = [[c]]
+  f c acc = (c:(head acc)):(tail acc)
+
+myUnlines :: [String] -> String
+myUnlines ls = foldr f "" ls where
+  f l s = (l++['\n']++s)
